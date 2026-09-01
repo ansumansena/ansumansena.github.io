@@ -1,0 +1,124 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------
+   Design tokens.
+   Two accents, deliberately: `signal` is the enterprise/systems track,
+   `ember` is the product/build track. Colour carries the argument.
+   ------------------------------------------------------------------ */
+@theme {
+  --color-ink-950: #06080b;
+  --color-ink-900: #090c11;
+  --color-ink-850: #0d1117;
+  --color-ink-800: #12181f;
+  --color-ink-700: #1a222c;
+  --color-ink-600: #26313d;
+
+  --color-fg: #e8edf3;
+  --color-muted: #8b98a8;
+  --color-faint: #7a8494;
+
+  --color-signal: #4fe0c8;
+  --color-signal-dim: #2a9c8b;
+  --color-ember: #ffa95c;
+  --color-ember-dim: #b8763a;
+
+  --font-display: 'Sora', 'Segoe UI', system-ui, sans-serif;
+  --font-sans: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Cascadia Code', ui-monospace, monospace;
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --nav-h: 4.5rem;
+  }
+
+  * {
+    border-color: color-mix(in srgb, var(--color-fg) 9%, transparent);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Keeps anchored sections clear of the sticky nav. */
+    scroll-padding-top: calc(var(--nav-h) + 1.5rem);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-ink-950);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    font-feature-settings: 'cv02', 'cv03', 'cv04';
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-signal) 28%, transparent);
+    color: #fff;
+  }
+
+  /* Visible, on-brand focus for keyboard users only. */
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Skip link — first tab stop on the page. */
+  .skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 100;
+    transform: translateY(-160%);
+    transition: transform 0.2s var(--ease-out-quart);
+  }
+  .skip-link:focus-visible { transform: translateY(0); }
+
+  /* Faint blueprint grid used behind the hero and section headers. */
+  .grid-veil {
+    background-image:
+      linear-gradient(color-mix(in srgb, var(--color-fg) 4%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in srgb, var(--color-fg) 4%, transparent) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 20%, transparent 75%);
+  }
+
+  .rule {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--color-fg) 14%, transparent),
+      transparent
+    );
+  }
+}
+
+@utility text-balance-safe {
+  text-wrap: balance;
+}
