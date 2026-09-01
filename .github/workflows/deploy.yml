@@ -27,9 +27,9 @@ jobs:
 
       - run: npm ci
 
-      # Use build:pages:subpath instead if this is a project repo
-      # served from ansumansena.github.io/<repo>/
-      - run: npm run build:pages
+      # Project repo served from ansumansena.github.io/dev-identity/,
+      # so this uses the subpath build (REPO_BASE in vite.config.ts).
+      - run: npm run build:pages:subpath
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

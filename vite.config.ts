@@ -12,7 +12,7 @@ import tailwindcss from '@tailwindcss/vite';
  * served at ansumansena.github.io/portfolio/) set REPO_BASE to '/portfolio/' and
  * build with `npm run build:ghpages`.
  */
-const REPO_BASE = '/portfolio/';
+const REPO_BASE = '/dev-identity/';
 
 export default defineConfig(({ mode }) => ({
   base: mode === 'ghpages' ? REPO_BASE : '/',
