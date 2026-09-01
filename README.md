@@ -102,12 +102,3 @@ work) and writes `.nojekyll`.
 Update the canonical and Open Graph URLs in `index.html` and `siteMeta.url` in
 `src/data/profile.ts` if the final domain differs from
 `https://ansumansena.github.io/`.
-
-## Notes on content
-
-- The phone number is deliberately **not** on the site. It is in the resume PDF,
-  which is a one-click download from the nav, the About identity card, the
-  contact section and the footer.
-- The portrait is a 200×200 source, so it is rendered at 96px and never larger.
-  Replacing `public/ansuman-senapati.jpg` with a higher-resolution version would
-  allow a larger treatment.
