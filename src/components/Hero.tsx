@@ -121,9 +121,8 @@ export function Hero() {
         >
           {profile.socials.map((social) =>
             social.href.startsWith('mailto:') ? (
-              <li key={social.label} className="flex items-center gap-2">
-                <span className="h-px w-4 bg-ink-600" aria-hidden="true" />
-                <EmailLink variant="inline" className="!text-faint hover:!text-signal" />
+              <li key={social.label}>
+                <EmailLink variant="inline" rule className="!text-faint hover:!text-signal" />
               </li>
             ) : (
               <li key={social.label}>

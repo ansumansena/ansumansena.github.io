@@ -5,14 +5,14 @@ import tailwindcss from '@tailwindcss/vite';
 /**
  * Deploy base path.
  *
- * Serving from a domain root - a custom domain, Netlify, Vercel, or a GitHub
- * user site repo named `ansumansena.github.io` - needs no change: base is '/'.
+ * The site is deployed to the GitHub *user site* repo `ansumansena.github.io`,
+ * which serves from the domain root - so base stays '/' and the default
+ * `npm run build:pages` is correct.
  *
- * Only if you deploy to a GitHub *project* repo (e.g. github.com/ansumansena/portfolio,
- * served at ansumansena.github.io/portfolio/) set REPO_BASE to '/portfolio/' and
- * build with `npm run build:ghpages`.
+ * REPO_BASE and `npm run build:pages:subpath` exist only for the project-repo
+ * case, where the site would live at ansumansena.github.io/<repo>/.
  */
-const REPO_BASE = '/dev-identity/';
+const REPO_BASE = '/dev-identity/'; // unused while deploying to the user site
 
 export default defineConfig(({ mode }) => ({
   base: mode === 'ghpages' ? REPO_BASE : '/',

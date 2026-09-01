@@ -44,6 +44,6 @@ export const siteMeta = {
   title: 'Ansuman Senapati — Software Engineer',
   description:
     'Software Engineer at TCS working on Nordea banking systems, and a full-stack builder in React, Next.js and TypeScript. Bhubaneswar, India.',
-  url: 'https://ansumansena.github.io/dev-identity/',
+  url: 'https://ansumansena.github.io/',
   ogImage: asset('og.png'),
 } as const;

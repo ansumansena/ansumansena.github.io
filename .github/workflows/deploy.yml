@@ -27,9 +27,9 @@ jobs:
 
       - run: npm ci
 
-      # Project repo served from ansumansena.github.io/dev-identity/,
-      # so this uses the subpath build (REPO_BASE in vite.config.ts).
-      - run: npm run build:pages:subpath
+      # User site repo (ansumansena.github.io) serves from the domain root.
+      # For a project repo, switch to build:pages:subpath and set REPO_BASE.
+      - run: npm run build:pages
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

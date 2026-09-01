@@ -7,6 +7,8 @@ interface EmailLinkProps {
   variant?: Variant;
   label?: string;
   className?: string;
+  /** Draws the animated leading rule used by the hero's social row. */
+  rule?: boolean;
 }
 
 function CheckIcon() {
@@ -36,7 +38,7 @@ function CheckIcon() {
  * link is a lost conversation. So the click also copies the address and
  * confirms it, which works everywhere.
  */
-export function EmailLink({ variant = 'inline', label, className = '' }: EmailLinkProps) {
+export function EmailLink({ variant = 'inline', label, className = '', rule }: EmailLinkProps) {
   const { copied, copy } = useCopyToClipboard();
 
   const handleClick = () => {
@@ -117,6 +119,14 @@ export function EmailLink({ variant = 'inline', label, className = '' }: EmailLi
         copied ? 'text-signal' : 'text-muted hover:text-signal'
       } ${className}`}
     >
+      {rule && (
+        <span
+          aria-hidden="true"
+          className={`h-px bg-ink-600 transition-all duration-300 ${
+            copied ? 'w-7 bg-signal' : 'w-4 group-hover:w-7 group-hover:bg-signal'
+          }`}
+        />
+      )}
       {copied ? 'Copied' : (label ?? 'Email')}
       {copied && <CheckIcon />}
     </a>
