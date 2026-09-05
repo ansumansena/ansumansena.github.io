@@ -14,13 +14,24 @@ export const profile = {
   },
   tagline: 'I keep a Nordic bank’s systems running by day, and build modern product on the web by night.',
   statement:
-    'Assistant System Engineer at TCS working on Nordea’s cash-pooling platform — L3 production analysis, CI/CD and security patching on Java infrastructure that has to be right. Off the clock I build full-stack products with React, Next.js and TypeScript.',
+    'Assistant System Engineer at TCS working on Nordea’s cash-pooling platform: L3 production analysis, CI/CD and security patching on Java infrastructure that has to be right. Off the clock I build full-stack products with React, Next.js and TypeScript.',
   location: 'Bhubaneswar, Odisha, India',
   timezone: 'Asia/Kolkata',
   timezoneLabel: 'IST',
   status: {
     available: true,
-    label: 'Open to conversations',
+    label: 'Open to new roles',
+  },
+  /**
+   * Availability. Every line here is derivable from the resume - current role,
+   * tenure, stack and location. Nothing about notice period or work
+   * arrangement is stated, because that is not on the resume.
+   */
+  openTo: {
+    roles: 'Software Engineer, full-stack or backend',
+    stack: 'Java and Spring, React, Next.js, TypeScript',
+    experience: 'Two years, currently at TCS',
+    location: 'Bhubaneswar, India',
   },
   email: 'ansumansenapati10@gmail.com',
   // Phone stays off the site by choice - it is in the resume PDF for anyone
@@ -41,7 +52,7 @@ export const profile = {
 } as const;
 
 export const siteMeta = {
-  title: 'Ansuman Senapati — Software Engineer',
+  title: 'Ansuman Senapati',
   description:
     'Software Engineer at TCS working on Nordea banking systems, and a full-stack builder in React, Next.js and TypeScript. Bhubaneswar, India.',
   url: 'https://ansumansena.github.io/',

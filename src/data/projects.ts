@@ -12,6 +12,10 @@ export interface Project {
   status?: 'Live' | 'Archived';
   /** Shown in place of links when the source is not public. */
   note?: string;
+  /** Competition placement, e.g. "2nd place". Renders as a highlighted badge. */
+  award?: string;
+  /** Ordered pipeline stages, drawn as a compact flow on the card. */
+  pipeline?: { from: string; stages: string[]; to: string };
   featured: boolean;
   blurb: string;
   description: string;
@@ -34,10 +38,10 @@ export const projects: Project[] = [
     featured: true,
     blurb: 'A website and ERP platform in production, built during my internship at Meliorist Developers.',
     description:
-      'Youstad’s public website and its ERP platform — the internal system the business actually runs on. Built in React with Material UI, with API integration and authentication handled through AWS Amplify. It is live and serving real users today.',
+      'Youstad’s public website and its ERP platform, the internal system the business actually runs on. Built in React with Material UI, with API integration and authentication handled through AWS Amplify. It is live and serving real users today.',
     contribution:
-      'Web developer on the build at Meliorist Developers — developed and maintained both the website and the ERP platform.',
-    note: 'Client work — the source is private.',
+      'Web developer on the build at Meliorist Developers, developing and maintaining both the website and the ERP platform.',
+    note: 'Client work, source is private.',
     stack: ['React', 'Material UI', 'AWS Amplify', 'JavaScript'],
     highlights: [
       'Built the platform front-ends in React, styled throughout with Material UI.',
@@ -48,6 +52,37 @@ export const projects: Project[] = [
     links: [{ label: 'app.youstad.com', href: 'https://app.youstad.com', kind: 'demo' }],
   },
   {
+    id: 'bug-triage-agent',
+    name: 'Bug Report Triage Agent',
+    year: '2026',
+    award: '2nd place',
+    featured: false,
+    blurb: 'A multi-agent generative AI pipeline that summarizes, scores and ranks maintenance bug reports.',
+    description:
+      'Built for the TCS AI Fridays Hackathon, Season 2, against the brief "Application Maintenance Bug Report Summarization and Prioritization Agent". Maintenance teams receive large volumes of bug reports that vary widely in detail and quality, which makes manual triage slow and error-prone. Rather than a single prompt, the solution chains specialised agents so each stage does one job well.',
+    contribution:
+      'One of a team of four. I worked on the generative AI side, including the retrieval-augmented generation stage.',
+    note: 'Built on TCS infrastructure during the event, so the source is not publicly available.',
+    pipeline: {
+      from: 'Bug report',
+      stages: [
+        'Summarization agent',
+        'Severity classification',
+        'RAG impact analyzer (module docs + history)',
+        'Priority scoring agent',
+        'Duplicate detection (embeddings)',
+      ],
+      to: 'Final ranked output',
+    },
+    stack: ['Generative AI', 'Multi-agent pipeline', 'RAG', 'Embeddings', 'Prompt engineering'],
+    highlights: [
+      'Retrieval over module documentation and historical resolutions, so impact is judged against how the codebase actually behaves rather than the report text alone.',
+      'Embedding-based duplicate detection collapses repeat reports before they reach the queue.',
+      'Severity and impact are scored separately, then combined into one priority rank.',
+    ],
+    links: [],
+  },
+  {
     id: 'job-prep',
     name: 'AI-Powered Job Prep',
     year: '2025',
@@ -55,10 +90,10 @@ export const projects: Project[] = [
     blurb: 'A full-stack interview-preparation platform on the current edge of the React ecosystem.',
     description:
       'A Next.js application where a candidate onboards and records the roles they are preparing for. Built with the App Router and React Server Components, authentication and user sync through Clerk webhooks, and a Postgres schema modelled in Drizzle.',
-    contribution: 'Sole developer — schema design, auth flow, server actions and the component library.',
+    contribution: 'Sole developer: schema design, auth flow, server actions and the component library.',
     stack: ['Next.js 15', 'React 19', 'TypeScript', 'Drizzle ORM', 'PostgreSQL', 'Clerk', 'Tailwind CSS v4'],
     highlights: [
-      'Feature-sliced architecture — each domain owns its actions, schemas, db access and components.',
+      'Feature-sliced architecture: each domain owns its actions, schemas, db access and components.',
       'Clerk webhook route keeps the local Postgres user table in sync with the auth provider.',
     ],
     links: [{ label: 'Source', href: 'https://github.com/ansumansena/ai-powered-job-prep', kind: 'repo' }],
@@ -72,7 +107,7 @@ export const projects: Project[] = [
     blurb: 'Real-time messaging with authentication, presence tracking and instant delivery.',
     description:
       'A messaging platform built on Firebase, with authentication, online-presence tracking and instant message delivery between concurrent users.',
-    contribution: 'Sole developer — auth, realtime data layer, state management and UI.',
+    contribution: 'Sole developer: auth, realtime data layer, state management and UI.',
     stack: ['React', 'SCSS', 'Firebase', 'Redux'],
     highlights: [
       'Presence tracking so users can see who is online in real time.',

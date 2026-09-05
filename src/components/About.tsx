@@ -6,7 +6,7 @@ import { ResumeButton } from './ui/ResumeButton';
 const tracks = [
   {
     key: 'enterprise',
-    kicker: 'Track 01 — Day',
+    kicker: 'Track 01 · Day',
     title: 'Systems that cannot fail',
     body: 'At TCS I work on Nordea’s cash-pooling platform out of the L3 Cashpool team. That means Java, WebLogic and Ant, Jenkins and JFrog pipelines, and production issue analysis where the answer has to be found rather than guessed. Security patches, configuration fixes, AppDynamics traces, and documentation good enough for the next person on call.',
     marks: ['Production L3 analysis', 'CI/CD ownership', 'Security patching', 'Performance monitoring'],
@@ -14,9 +14,9 @@ const tracks = [
   },
   {
     key: 'product',
-    kicker: 'Track 02 — Night',
+    kicker: 'Track 02 · Night',
     title: 'Products built end to end',
-    body: 'The other half is product work. React and Next.js, TypeScript, Postgres and Drizzle, auth and payments — taken from an empty repository to something deployed. Youstad’s website and ERP platform went live in production and is still serving users; alongside it sit a realtime chat app, a full e-commerce stack with Stripe, and an interview-prep platform on Next.js 15.',
+    body: 'The other half is product work. React and Next.js, TypeScript, Postgres and Drizzle, auth and payments, taken from an empty repository to something deployed. Youstad’s website and ERP platform went live in production and is still serving users; alongside it sit a realtime chat app, a full e-commerce stack with Stripe, and an interview-prep platform on Next.js 15.',
     marks: ['Full-stack ownership', 'Schema to interface', 'Modern React', 'Shipped and deployed'],
     accent: 'ember' as const,
   },

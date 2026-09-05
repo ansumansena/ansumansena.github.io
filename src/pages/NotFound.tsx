@@ -9,7 +9,7 @@ import { SignalField } from '../components/SignalField';
 const lines = [
   { at: '00:00.02', level: 'INFO', text: 'GET request received' },
   { at: '00:00.04', level: 'WARN', text: 'route not found in manifest' },
-  { at: '00:00.09', level: 'ERROR', text: 'HTTP 404 — no handler matched' },
+  { at: '00:00.09', level: 'ERROR', text: 'HTTP 404: no handler matched' },
   { at: '00:00.11', level: 'INFO', text: 'severity: low · impact: one curious visitor' },
   { at: '00:00.14', level: 'INFO', text: 'suggested fix: return to /' },
 ];
@@ -24,7 +24,7 @@ export default function NotFound() {
   const [shown, setShown] = useState(0);
 
   useEffect(() => {
-    document.title = '404 — Page not found · Ansuman Senapati';
+    document.title = 'Page not found · Ansuman Senapati';
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (reduce) {

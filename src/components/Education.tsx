@@ -9,7 +9,7 @@ export function Education() {
       id="background"
       index="05"
       title="Background"
-      lead="Four years of information technology at OUTR, finished on a merit scholarship, plus the courses I have taken since."
+      lead="Four years of information technology at OUTR, finished on a merit scholarship, plus what I have won and studied since."
     >
       <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
         <Reveal>
@@ -18,7 +18,7 @@ export function Education() {
 
             <div className="mt-6 rounded-2xl border border-white/[0.07] bg-ink-900/60 p-7 sm:p-8">
               <p className="font-mono text-xs text-signal">
-                {education.start} &ndash; {education.end}
+                {education.start} - {education.end}
               </p>
               <h4 className="mt-3 text-2xl font-semibold leading-tight text-fg">{education.degree}</h4>
               <p className="mt-2 text-base text-muted">{education.institution}</p>

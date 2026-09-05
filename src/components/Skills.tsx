@@ -11,7 +11,7 @@ export function Skills() {
       id="stack"
       index="02"
       title="What I work with"
-      lead="Grouped by what it is actually for. Teal marks the enterprise and operations side, amber the product side — most weeks I am in both."
+      lead="Grouped by what it is actually for. Teal marks the enterprise and operations side, amber the product side. Most weeks I am in both."
     >
       <div className="grid gap-px overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.06] sm:grid-cols-2 lg:grid-cols-3">
         {skillGroups.map((group, gi) => {

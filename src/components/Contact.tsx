@@ -33,7 +33,7 @@ export function Contact() {
           </h2>
 
           <p className="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-            Enterprise reliability or a product from scratch &mdash; I am happy to talk about either. The
+            Enterprise reliability or a product from scratch. I am happy to talk about either. The
             fastest way to reach me is email.
           </p>
         </Reveal>
@@ -50,29 +50,39 @@ export function Contact() {
         </Reveal>
 
         <Reveal delay={0.22}>
-          <dl className="mt-20 grid gap-px overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.06] sm:grid-cols-3">
-            {[
-              { term: 'Based in', value: profile.location },
-              { term: 'Currently', value: 'Assistant System Engineer, TCS' },
-              { term: 'Status', value: profile.status.label, accent: true },
-            ].map((item) => (
-              <div key={item.term} className="bg-ink-900 p-6">
-                <dt className="font-mono text-[10px] uppercase tracking-[0.16em] text-faint">
-                  {item.term}
-                </dt>
-                <dd
-                  className={`mt-2.5 flex items-center gap-2 text-[15px] ${
-                    item.accent ? 'text-signal' : 'text-fg'
-                  }`}
-                >
-                  {item.accent && (
-                    <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-signal" />
-                  )}
-                  {item.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
+          <div className="mt-20 overflow-hidden rounded-2xl border border-white/[0.07]">
+            <div className="flex items-center gap-2.5 border-b border-white/[0.07] bg-ink-900/60 px-6 py-4">
+              <span className="relative flex h-2 w-2" aria-hidden="true">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-signal opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-signal" />
+              </span>
+              <h3 className="font-mono text-[11px] uppercase tracking-[0.16em] text-signal">
+                {profile.status.label}
+              </h3>
+            </div>
+
+            <dl className="grid gap-px bg-white/[0.06] sm:grid-cols-2">
+              {[
+                { term: 'Looking for', value: profile.openTo.roles, accent: true },
+                { term: 'Working with', value: profile.openTo.stack },
+                { term: 'Experience', value: profile.openTo.experience },
+                { term: 'Based in', value: profile.openTo.location },
+              ].map((item) => (
+                <div key={item.term} className="bg-ink-900 px-6 py-5">
+                  <dt className="font-mono text-[10px] uppercase tracking-[0.16em] text-faint">
+                    {item.term}
+                  </dt>
+                  <dd
+                    className={`mt-2 text-[15px] leading-relaxed ${
+                      item.accent ? 'text-signal' : 'text-fg'
+                    }`}
+                  >
+                    {item.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
         </Reveal>
       </div>
     </section>

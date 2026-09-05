@@ -21,7 +21,7 @@ export const experience: Role[] = [
     id: 'tcs',
     company: 'Tata Consultancy Services',
     title: 'Assistant System Engineer',
-    project: 'Nordea — Local Systems Sweden',
+    project: 'Nordea, Local Systems Sweden',
     team: 'L3 Cashpool Team',
     start: 'Jul 2024',
     end: 'Present',
@@ -32,7 +32,7 @@ export const experience: Role[] = [
     highlights: [
       'Contribute to Java-based enterprise application development using Eclipse, Apache Ant and Oracle WebLogic Server for deployment and testing.',
       'Manage CI/CD pipelines via Jenkins and JFrog Artifactory.',
-      'Perform L3-level production issue analysis — code debugging, configuration fixes and security vulnerability patching.',
+      'Perform L3-level production issue analysis: code debugging, configuration fixes and security vulnerability patching.',
       'Monitor application performance with AppDynamics and author technical documentation in Confluence.',
     ],
     stack: ['Java', 'Apache Ant', 'WebLogic', 'Jenkins', 'JFrog', 'AppDynamics', 'Confluence', 'JIRA'],
@@ -46,7 +46,7 @@ export const experience: Role[] = [
     current: false,
     track: 'product',
     summary:
-      'Shipped and maintained the website and ERP platform for Youstad — my first production React codebase with real users.',
+      'Shipped and maintained the website and ERP platform for Youstad. My first production React codebase with real users.',
     highlights: [
       'Developed and maintained the website and ERP platform for Youstad.',
       'Built the platform front-ends in React with Material UI for styling.',

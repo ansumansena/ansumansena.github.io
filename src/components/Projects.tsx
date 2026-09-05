@@ -10,6 +10,19 @@ const statusTone: Record<NonNullable<Project['status']>, string> = {
   Archived: 'border-ink-600 bg-ink-800 text-faint',
 };
 
+/** Competition placement. Deliberately louder than the status badge. */
+function AwardBadge({ award }: { award?: string }) {
+  if (!award) return null;
+  return (
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-ember/40 bg-ember/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-ember">
+      <svg viewBox="0 0 16 16" aria-hidden="true" className="h-3 w-3" fill="currentColor">
+        <path d="M8 1.5 9.9 5.4l4.3.6-3.1 3 .7 4.3L8 11.3 4.2 13.3l.7-4.3-3.1-3 4.3-.6z" />
+      </svg>
+      {award}
+    </span>
+  );
+}
+
 /** Renders nothing when a project carries no status, so no claim is implied. */
 function StatusBadge({ status }: { status?: Project['status'] }) {
   if (!status) return null;
@@ -97,6 +110,7 @@ function FeaturedProject({ project }: { project: Project }) {
               <span className="rounded-full border border-ember/30 bg-ember/8 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-ember">
                 Featured
               </span>
+              <AwardBadge award={project.award} />
               <StatusBadge status={project.status} />
               <span className="font-mono text-xs text-faint">{project.year}</span>
             </div>
@@ -150,17 +164,74 @@ function FeaturedProject({ project }: { project: Project }) {
   );
 }
 
+/**
+ * Compact vertical flow for a project's architecture. Numbered stages with a
+ * connecting spine, so the shape of the system reads at a glance without
+ * needing a full diagram.
+ */
+function Pipeline({ pipeline }: { pipeline: NonNullable<Project['pipeline']> }) {
+  return (
+    <div className="relative mt-6">
+      <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-faint">Architecture</p>
+
+      <ol className="relative mt-4 space-y-0">
+        <li className="flex items-center gap-3 pb-3 font-mono text-[11px] text-muted">
+          <span
+            aria-hidden="true"
+            className="grid h-5 w-5 shrink-0 place-items-center rounded border border-ink-600 bg-ink-850 text-[9px] text-faint"
+          >
+            in
+          </span>
+          {pipeline.from}
+        </li>
+
+        {pipeline.stages.map((stage, i) => (
+          <li key={stage} className="relative flex gap-3 pb-3">
+            <span
+              aria-hidden="true"
+              className="absolute left-[9px] top-0 h-full w-px bg-gradient-to-b from-ember/40 to-ember/15"
+            />
+            <span className="relative grid h-5 w-5 shrink-0 place-items-center rounded-full border border-ember/40 bg-ink-900 font-mono text-[9px] text-ember">
+              {i + 1}
+            </span>
+            <span className="pt-0.5 text-[13px] leading-snug text-muted">{stage}</span>
+          </li>
+        ))}
+
+        <li className="flex items-center gap-3 font-mono text-[11px] text-ember">
+          <span
+            aria-hidden="true"
+            className="grid h-5 w-5 shrink-0 place-items-center rounded border border-ember/40 bg-ember/10 text-[9px]"
+          >
+            out
+          </span>
+          {pipeline.to}
+        </li>
+      </ol>
+    </div>
+  );
+}
+
 function ProjectCard({ project, delay }: { project: Project; delay: number }) {
   return (
     <Reveal delay={delay} className="h-full">
       <TiltCard className="group h-full">
-        <article className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-ink-900/70 p-7 transition-colors duration-500 hover:border-signal/25 sm:p-8">
+        <article
+          className={`relative flex h-full flex-col overflow-hidden rounded-2xl border bg-ink-900/70 p-7 transition-colors duration-500 sm:p-8 ${
+            project.award
+              ? 'border-ember/20 hover:border-ember/40'
+              : 'border-white/[0.07] hover:border-signal/25'
+          }`}
+        >
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -right-20 -top-20 h-52 w-52 rounded-full bg-signal/[0.07] opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100"
+            className={`pointer-events-none absolute -right-20 -top-20 h-52 w-52 rounded-full opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100 ${
+              project.award ? 'bg-ember/[0.09]' : 'bg-signal/[0.07]'
+            }`}
           />
 
-          <div className="relative flex items-center gap-3">
+          <div className="relative flex flex-wrap items-center gap-3">
+            <AwardBadge award={project.award} />
             <StatusBadge status={project.status} />
             <span className="font-mono text-xs text-faint">{project.year}</span>
           </div>
@@ -171,13 +242,24 @@ function ProjectCard({ project, delay }: { project: Project; delay: number }) {
           <ul className="relative mt-5 space-y-2.5">
             {project.highlights.map((highlight) => (
               <li key={highlight} className="flex gap-3 text-sm leading-relaxed text-muted/85">
-                <span aria-hidden="true" className="mt-2 h-1 w-1 shrink-0 rounded-full bg-signal/70" />
+                <span
+                  aria-hidden="true"
+                  className={`mt-2 h-1 w-1 shrink-0 rounded-full ${
+                    project.award ? 'bg-ember/80' : 'bg-signal/70'
+                  }`}
+                />
                 {highlight}
               </li>
             ))}
           </ul>
 
-          <div className="relative mt-5 border-l-2 border-signal/30 pl-4">
+          {project.pipeline && <Pipeline pipeline={project.pipeline} />}
+
+          <div
+            className={`relative mt-5 border-l-2 pl-4 ${
+              project.award ? 'border-ember/40' : 'border-signal/30'
+            }`}
+          >
             <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-faint">Contribution</p>
             <p className="mt-1.5 text-sm text-muted">{project.contribution}</p>
           </div>

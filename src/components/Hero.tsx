@@ -140,17 +140,6 @@ export function Hero() {
           )}
         </motion.ul>
       </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.4, duration: 0.8 }}
-        className="pointer-events-none absolute bottom-7 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 md:flex"
-        aria-hidden="true"
-      >
-        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-faint">Scroll</span>
-        <span className="h-9 w-px bg-gradient-to-b from-signal/60 to-transparent" />
-      </motion.div>
     </section>
   );
 }

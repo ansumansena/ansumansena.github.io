@@ -9,7 +9,7 @@ export function Experience() {
       id="experience"
       index="03"
       title="Experience"
-      lead="Two roles so far — one enterprise, one product. Both shipped to real users."
+      lead="Two roles so far: one enterprise, one product. Both shipped to real users."
     >
       <ol className="relative">
         {/* The spine of the timeline. */}
@@ -35,7 +35,7 @@ export function Experience() {
                 <article className="pb-14">
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-xs">
                     <span className={isSignal ? 'text-signal' : 'text-ember'}>
-                      {role.start} — {role.end}
+                      {role.start} - {role.end}
                     </span>
                     {role.current && (
                       <span className="rounded-full border border-signal/30 bg-signal/8 px-2 py-0.5 text-[10px] uppercase tracking-wider text-signal">
@@ -53,7 +53,7 @@ export function Experience() {
                         <span className="text-fg">{role.project}</span>
                       </>
                     )}
-                    {role.team && <span className="text-faint"> — {role.team}</span>}
+                    {role.team && <span className="text-faint"> · {role.team}</span>}
                   </p>
 
                   <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-muted">{role.summary}</p>
