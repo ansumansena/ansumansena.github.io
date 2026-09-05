@@ -7,9 +7,10 @@ export interface ProjectLink {
 export interface Project {
   id: string;
   name: string;
-  year: string;
+  /** Optional. Omitted while a project is still in progress. */
+  year?: string;
   /** Optional — a card with no status simply shows its year. */
-  status?: 'Live' | 'Archived';
+  status?: 'Live' | 'Completed' | 'Archived';
   /** Shown in place of links when the source is not public. */
   note?: string;
   /** Competition placement, e.g. "2nd place". Renders as a highlighted badge. */
@@ -85,16 +86,30 @@ export const projects: Project[] = [
   {
     id: 'job-prep',
     name: 'AI-Powered Job Prep',
-    year: '2025',
+    year: '2026',
     featured: false,
     blurb: 'A full-stack interview-preparation platform on the current edge of the React ecosystem.',
     description:
-      'A Next.js application where a candidate onboards and records the roles they are preparing for. Built with the App Router and React Server Components, authentication and user sync through Clerk webhooks, and a Postgres schema modelled in Drizzle.',
-    contribution: 'Sole developer: schema design, auth flow, server actions and the component library.',
-    stack: ['Next.js 15', 'React 19', 'TypeScript', 'Drizzle ORM', 'PostgreSQL', 'Clerk', 'Tailwind CSS v4'],
+      'A Next.js 15 application built on the App Router and React Server Components. A candidate signs in through Clerk, completes onboarding, and manages the roles they are preparing for through a full create, read, update and delete flow. The data layer is Drizzle over Postgres, modelled across users, job info, interviews and questions, with migrations checked in.',
+    contribution:
+      'Sole developer: data model, auth flow, server actions, caching layer and the component library.',
+    stack: [
+      'Next.js 15',
+      'React 19',
+      'TypeScript',
+      'Drizzle ORM',
+      'PostgreSQL',
+      'Clerk',
+      'Zod',
+      'Arcjet',
+      'Tailwind CSS v4',
+    ],
     highlights: [
-      'Feature-sliced architecture: each domain owns its actions, schemas, db access and components.',
-      'Clerk webhook route keeps the local Postgres user table in sync with the auth provider.',
+      'Feature-sliced architecture: every domain owns its own server actions, database access, cache tags, Zod schemas and components.',
+      'A Clerk webhook route keeps the local Postgres user table in sync with the auth provider, so sign-ups and profile changes propagate automatically.',
+      'A dedicated cache layer tags each query by domain, so a mutation invalidates exactly the right data instead of the whole route.',
+      'Type-safe environment variables split across client and server, forms validated with Zod and React Hook Form, and routes protected in middleware.',
+      'Light and dark theming with suspense boundaries and skeleton loading throughout.',
     ],
     links: [{ label: 'Source', href: 'https://github.com/ansumansena/ai-powered-job-prep', kind: 'repo' }],
   },

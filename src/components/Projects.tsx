@@ -7,6 +7,7 @@ import { Tag } from './ui/Tag';
 
 const statusTone: Record<NonNullable<Project['status']>, string> = {
   Live: 'border-signal/30 bg-signal/8 text-signal',
+  Completed: 'border-fg/20 bg-white/[0.05] text-fg/85',
   Archived: 'border-ink-600 bg-ink-800 text-faint',
 };
 
@@ -123,7 +124,9 @@ function FeaturedProject({ project }: { project: Project }) {
               </span>
               <AwardBadge award={project.award} />
               <StatusBadge status={project.status} />
-              <span className="font-mono text-xs text-faint">{project.year}</span>
+              {project.year && (
+                <span className="font-mono text-xs text-faint">{project.year}</span>
+              )}
             </div>
 
             <h3 className="mt-6 text-3xl font-semibold leading-tight text-fg sm:text-4xl lg:text-[2.75rem]">
@@ -224,6 +227,8 @@ function Pipeline({ pipeline }: { pipeline: NonNullable<Project['pipeline']> }) 
 }
 
 function ProjectCard({ project, delay }: { project: Project; delay: number }) {
+  const hasMeta = Boolean(project.award || project.status || project.year);
+
   return (
     <Reveal delay={delay} className="h-full">
       <TiltCard className="group h-full">
@@ -244,13 +249,19 @@ function ProjectCard({ project, delay }: { project: Project; delay: number }) {
             }}
           />
 
-          <div className="relative flex flex-wrap items-center gap-3">
-            <AwardBadge award={project.award} />
-            <StatusBadge status={project.status} />
-            <span className="font-mono text-xs text-faint">{project.year}</span>
-          </div>
+          {hasMeta && (
+            <div className="relative flex flex-wrap items-center gap-3">
+              <AwardBadge award={project.award} />
+              <StatusBadge status={project.status} />
+              {project.year && (
+                <span className="font-mono text-xs text-faint">{project.year}</span>
+              )}
+            </div>
+          )}
 
-          <h3 className="relative mt-5 text-2xl font-semibold text-fg">{project.name}</h3>
+          <h3 className={`relative text-2xl font-semibold text-fg ${hasMeta ? 'mt-5' : ''}`}>
+            {project.name}
+          </h3>
           <p className="relative mt-3 text-[15px] leading-relaxed text-muted">{project.description}</p>
 
           <ul className="relative mt-5 space-y-2.5">

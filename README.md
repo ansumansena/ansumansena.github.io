@@ -1,104 +1,106 @@
-# Ansuman Senapati — Portfolio
+# Portfolio
 
-Personal portfolio site. React + Vite + TypeScript + Tailwind CSS v4 + Framer Motion.
+My personal portfolio site. Single page, dark theme, built with React and Vite.
 
-## Running it
+**Live: [ansumansena.github.io](https://ansumansena.github.io)**
+
+![Portfolio homepage](docs/preview.png)
+
+## Stack
+
+| | |
+|---|---|
+| Framework | React 18 + Vite 6 |
+| Language | TypeScript (strict) |
+| Styling | Tailwind CSS v4 |
+| Animation | Framer Motion 11 |
+| Routing | React Router 6 |
+| Hosting | GitHub Pages via GitHub Actions |
+
+## Getting started
 
 ```bash
 npm install
-npm run dev      # dev server
-npm run build    # typecheck + production build to dist/
-npm run preview  # serve the production build
-npm run lint     # typecheck only
+npm run dev
 ```
 
-## The idea behind the design
+Runs at `http://localhost:5173`.
 
-The site is built around one observation: the work splits into two tracks that most
-portfolios would flatten into a single list.
+| Script | Does |
+|---|---|
+| `npm run dev` | Dev server with hot reload |
+| `npm run build` | Typecheck, then production build to `dist/` |
+| `npm run preview` | Serve the production build locally |
+| `npm run lint` | Typecheck only, no emit |
+| `npm run build:pages` | Production build plus the GitHub Pages `404.html` and `.nojekyll` |
 
-- **Enterprise / systems** — Java, WebLogic, Jenkins, L3 production analysis at TCS on
-  Nordea's cash-pooling platform. Rendered in **signal teal** (`#4FE0C8`).
-- **Product / build** — React, Next.js, TypeScript, full-stack side projects.
-  Rendered in **ember** (`#FFA95C`).
+## Features
 
-Every accent on the page is one of those two colours, chosen by which track the thing
-belongs to. The palette carries the argument rather than just decorating it.
+- Interactive canvas hero: a node lattice that brightens and links toward the cursor
+- Scroll progress indicator and scroll-spy navigation
+- Cursor-tracked spotlight and tilt on project cards
+- Live local clock showing my time in IST, so visitors know when I am reachable
+- One-click resume download from four places on the page
+- Email links that copy the address to the clipboard as well as opening a mail client
+- Custom 404 page styled as a server log
+- Fully responsive, with a dedicated mobile menu
 
-Type is Bricolage Grotesque (display), Inter (body) and JetBrains Mono (all data,
-labels and timestamps). Mono-for-data is what gives the page its instrumentation feel.
-
-## Structure
+## Project structure
 
 ```
 src/
-├── data/            All content. Edit here, never in components.
-│   ├── profile.ts        name, tagline, socials, status, "currently building"
-│   ├── experience.ts     roles, each tagged with its track
-│   ├── projects.ts       projects, stacks and links
-│   ├── skills.ts         skill groups, each tagged with its track
-│   ├── education.ts      degree + certifications
-│   └── navigation.ts     nav items and their section ids
+├── data/            All page content. Edit here, not in components.
+│   ├── profile.ts       Name, tagline, socials, availability
+│   ├── experience.ts    Roles
+│   ├── projects.ts      Projects, stacks, links
+│   ├── skills.ts        Skill groups
+│   ├── education.ts     Degree, awards, certifications
+│   └── navigation.ts    Nav items and section ids
 ├── components/
-│   ├── Navbar.tsx        sticky nav, scroll-spy, mobile sheet
-│   ├── Hero.tsx
-│   ├── SignalField.tsx   the interactive canvas lattice
-│   ├── About.tsx         the "two tracks" section
-│   ├── Skills.tsx
-│   ├── Experience.tsx    timeline
-│   ├── Projects.tsx      featured card + grid
-│   ├── Education.tsx     wraps Achievements
-│   ├── Achievements.tsx  certifications list
-│   ├── Contact.tsx
-│   ├── Footer.tsx
-│   └── ui/               Section, Reveal, MagneticButton, Tag
-├── hooks/
-│   ├── useScrollSpy.ts
-│   └── useLocalTime.ts   live IST clock
-└── pages/
-    ├── Home.tsx
-    └── NotFound.tsx      404 styled as an incident log
+│   ├── Navbar · Hero · About · Skills · Experience
+│   ├── Projects · Education · Achievements · Contact · Footer
+│   ├── SignalField.tsx  The hero canvas
+│   └── ui/              Section, Reveal, Tag, MagneticButton,
+│                        ResumeButton, EmailLink
+├── hooks/           useScrollSpy, useLocalTime, useCopyToClipboard
+└── pages/           Home, NotFound
 ```
 
-**To change any content, edit `src/data/`.** No copy lives in the components.
+Content is fully separated from presentation. To change any text on the site,
+edit a file in `src/data/` and nothing else.
 
-## Performance and accessibility notes
+## Accessibility and performance
 
-- The hero canvas pauses via `IntersectionObserver` when scrolled out of view, caps
-  node count, and renders a single static frame under `prefers-reduced-motion`.
-- Every animation (`Reveal`, `MagneticButton`, card tilt, the 404 log) is disabled or
-  collapsed under `prefers-reduced-motion`.
-- Framer Motion and the router are split into their own chunks; the 404 page is lazy
-  loaded so it never ships in the initial bundle.
-- Semantic landmarks throughout, a skip link as the first tab stop, visible focus
-  rings, `aria-current` on the active nav item, and Escape closes the mobile menu.
+Lighthouse on the production build:
 
-## Deploying
+```
+Performance 99 · Accessibility 100 · Best Practices 100 · SEO 100
+FCP 0.6s · LCP 1.0s · TBT 0ms · CLS 0
+```
 
-`npm run build` outputs to `dist/`.
+- Semantic landmarks, one `h1`, and a skip link as the first tab stop
+- Full keyboard navigation with visible focus rings; Escape closes the mobile menu
+- Every animation is disabled or reduced under `prefers-reduced-motion`
+- The hero canvas pauses via `IntersectionObserver` when scrolled out of view
+- Framer Motion and the router are code-split; the 404 page is lazy loaded
 
-The site is a single-page app, so unknown routes must fall back to `index.html`
-for the custom 404 to render.
+## Deployment
 
-**GitHub Pages** (configured, recommended). `.github/workflows/deploy.yml` builds
-and publishes on every push to `main` — enable it once under
-*Settings → Pages → Source → GitHub Actions*.
+Pushing to `main` triggers `.github/workflows/deploy.yml`, which builds and
+publishes to GitHub Pages. Pages must be set to **Settings → Pages → Source →
+GitHub Actions** once.
 
-- Repo named `ansumansena.github.io` → served at the domain root, nothing to
-  change. This is the setup the workflow assumes.
-- Any other repo name → served at `ansumansena.github.io/<repo>/`. Set
-  `REPO_BASE` in `vite.config.ts` to `/<repo>/` and switch the workflow's build
-  step to `npm run build:pages:subpath`.
+The site is a single-page app, so unknown routes need to fall back to
+`index.html` for the custom 404 to render. `scripts/ghpages-postbuild.mjs`
+handles this by copying `index.html` to `404.html` and writing `.nojekyll`.
 
-Both paths run `scripts/ghpages-postbuild.mjs`, which copies `index.html` to
-`404.html` (Pages has no rewrite rules, so this is what makes the SPA routes
-work) and writes `.nojekyll`.
+Serving from a project repo instead of the user site (`ansumansena.github.io`)
+requires setting `REPO_BASE` in `vite.config.ts` to `/<repo-name>/` and
+switching the workflow to `npm run build:pages:subpath`. Configs for Netlify
+(`public/_redirects`) and Vercel (`vercel.json`) are also included.
 
-**Netlify** — `public/_redirects` is already in place.
-**Vercel** — `vercel.json` is already in place.
+## Use
 
-### Before going live
-
-Update the canonical and Open Graph URLs in `index.html` and `siteMeta.url` in
-`src/data/profile.ts` if the final domain differs from
-`https://ansumansena.github.io/`.
+Personal project, published so the code can be read. The written content,
+resume, photograph and Open Graph image are mine, please do not reuse those.
+No license is granted; if you want to build on the code, just ask.
