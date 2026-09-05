@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, useScroll, useSpring, useReducedMotion } from 'framer-motion';
 import { navItems } from '../data/navigation';
 import { profile } from '../data/profile';
 import { useScrollSpy } from '../hooks/useScrollSpy';
@@ -9,6 +9,12 @@ const sectionIds = navItems.map((item) => item.id);
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const reduce = useReducedMotion();
+
+  // Read progress, drawn as a telemetry line under the nav. Springing the
+  // value keeps it from twitching on trackpad scroll.
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 28, restDelta: 0.001 });
   const [menuOpen, setMenuOpen] = useState(false);
   const active = useScrollSpy(sectionIds);
 
@@ -123,6 +129,16 @@ export function Navbar() {
             </button>
           </div>
         </nav>
+
+        {!reduce && (
+          <motion.div
+            aria-hidden="true"
+            style={{ scaleX: progress }}
+            className={`h-px origin-left bg-gradient-to-r from-signal via-signal to-ember transition-opacity duration-500 ${
+              scrolled ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+        )}
       </header>
 
       <AnimatePresence>

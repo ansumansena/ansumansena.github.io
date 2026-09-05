@@ -68,8 +68,15 @@ function TiltCard({ children, className = '' }: { children: ReactNode; className
   const reduce = useReducedMotion();
 
   const onMove = (e: ReactMouseEvent<HTMLDivElement>) => {
-    if (reduce || !ref.current) return;
+    if (!ref.current) return;
     const rect = ref.current.getBoundingClientRect();
+
+    // Spotlight position is written straight to CSS custom properties rather
+    // than React state, so following the cursor costs no re-renders.
+    ref.current.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+    ref.current.style.setProperty('--my', `${e.clientY - rect.top}px`);
+
+    if (reduce) return;
     const px = (e.clientX - rect.left) / rect.width - 0.5;
     const py = (e.clientY - rect.top) / rect.height - 0.5;
     setTilt({ rx: -py * 4, ry: px * 4 });
@@ -100,7 +107,11 @@ function FeaturedProject({ project }: { project: Project }) {
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-ember/10 blur-3xl transition-colors duration-700 group-hover:bg-ember/[0.16]"
+          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          style={{
+            background:
+              'radial-gradient(520px circle at var(--mx, 70%) var(--my, 0px), rgba(255,169,92,0.11), transparent 70%)',
+          }}
         />
         <div className="grid-veil pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
 
@@ -225,9 +236,12 @@ function ProjectCard({ project, delay }: { project: Project; delay: number }) {
         >
           <div
             aria-hidden="true"
-            className={`pointer-events-none absolute -right-20 -top-20 h-52 w-52 rounded-full opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100 ${
-              project.award ? 'bg-ember/[0.09]' : 'bg-signal/[0.07]'
-            }`}
+            className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+            style={{
+              background: `radial-gradient(360px circle at var(--mx, 50%) var(--my, 0px), ${
+                project.award ? 'rgba(255,169,92,0.10)' : 'rgba(79,224,200,0.08)'
+              }, transparent 70%)`,
+            }}
           />
 
           <div className="relative flex flex-wrap items-center gap-3">
